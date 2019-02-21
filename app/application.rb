@@ -20,6 +20,14 @@ class Application
       else
         @@cart.each {|item|resp.write "#{item}\n"}
       end
+    elsif req.path.match(/add/)
+      item_to_add = req.params["item"]
+      if @@items.include? item_to_add
+        @@cart << item_to_add 
+        resp.write "Added #{item_to_add}"
+      else 
+        resp.write "We don't have that item!"
+      end
     else
       resp.write "Path Not Found"
     end
@@ -34,4 +42,5 @@ class Application
       return "Couldn't find #{search_term}"
     end
   end
+  
 end
